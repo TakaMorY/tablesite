@@ -1,5 +1,5 @@
 <template>
-    <div class="relative">
+    <div class="relative" ref="containerRef">
         <button @click="showActions = !showActions"
             class="p-2 rounded-lg bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/50 transition-colors">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -39,6 +39,7 @@
 
 <script setup>
 const showActions = ref(false)
+const containerRef = ref(null)
 
 const createQuickNote = () => {
     const quickNote = {
@@ -72,7 +73,17 @@ const toggleFocusMode = () => {
 }
 
 // Закрываем меню при клике вне его
-onClickOutside(document.body, () => {
-    showActions.value = false
+const handleClickOutside = (event) => {
+    if (containerRef.value && !containerRef.value.contains(event.target)) {
+        showActions.value = false
+    }
+}
+
+onMounted(() => {
+    document.addEventListener('click', handleClickOutside)
+})
+
+onUnmounted(() => {
+    document.removeEventListener('click', handleClickOutside)
 })
 </script>
