@@ -1,19 +1,27 @@
 export default defineNuxtConfig({
-  devtools: { enabled: true },
-  css: ['~/assets/css/tailwind.css'],
+  css: ['~/assets/css/main.css'],
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
+
   app: {
     head: {
-      title: 'PurpleNotes - Элегантные заметки',
+      htmlAttrs: {
+        lang: 'ru'
+      },
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Элегантное приложение для заметок с красивым фиолетовым дизайном' }
+        { name: 'theme-color', content: '#faf5ff' },
+        { name: 'msapplication-TileColor', content: '#faf5ff' }
       ],
       link: [
-        {
-          rel: 'stylesheet',
-          href: 'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css'
-        }
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap' }
       ]
     }
   }
